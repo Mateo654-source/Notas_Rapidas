@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotaRápida — Mini App de Notas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap"
+    rel="stylesheet" />
+    <link 
+    rel="stylesheet" 
+    href="/style/index.css" />
+</head>
+
+<body>
+
+  <!-- ========== TOASTS ========== -->
+  <div id="toast-container"></div>
+
+  <div class="app-wrapper">
+
+    <!-- ========== HEADER ========== -->
+    <header>
+      <div class="header-brand">
+        <h1>NotaRápida</h1>
+        <p>DOM · LocalStorage · Fetch API — Módulo JS</p>
+      </div>
+      <div class="note-counter">
+        Notas: <span id="note-count">0</span>
+      </div>
+    </header>
+
+    <!-- ========== FORMULARIO ========== -->
+    <!-- TASK 1 & 2: Formulario de entrada con validación -->
+    <section class="form-card" aria-label="Agregar nota">
+      <h2>✏️ Nueva nota</h2>
+
+      <div class="form-row">
+        <!-- Campo: Título -->
+        <div class="field-group">
+          <label for="input-titulo">Título *</label>
+          <input type="text" id="input-titulo" placeholder="Título de la nota..." maxlength="80" autocomplete="off" />
+        </div>
+
+        <!-- Campo: Categoría -->
+        <div class="field-group">
+          <label for="input-categoria">Categoría</label>
+          <select id="input-categoria">
+            <option value="personal">Personal</option>
+            <option value="trabajo">Trabajo</option>
+            <option value="idea">Idea</option>
+            <option value="urgente">Urgente</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Campo: Descripción -->
+      <div class="field-group" style="margin-bottom:.85rem">
+        <label for="input-descripcion">Descripción *</label>
+        <textarea id="input-descripcion" placeholder="Escribe el contenido de tu nota..." maxlength="400"></textarea>
+      </div>
+
+      <!-- Acciones del formulario -->
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-agregar">
+          + Agregar nota
+        </button>
+        <button class="btn btn-secondary" id="btn-sync-api">
+          ⇅ Sincronizar API
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== FILTROS ========== -->
+    <div class="filters-bar">
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="personal">Personal</button>
+      <button class="filter-btn" data-filter="trabajo">Trabajo</button>
+      <button class="filter-btn" data-filter="idea">Idea</button>
+      <button class="filter-btn" data-filter="urgente">Urgente</button>
+      <input type="text" class="search-input" id="input-buscar" placeholder="Buscar nota..." />
+    </div>
+
+    <!-- ========== LISTA DE NOTAS ========== -->
+    <!-- TASK 3: Lista dinámica del DOM -->
+    <ul id="notes-list" aria-label="Lista de notas">
+      <!-- Las notas se renderizan dinámicamente con JS -->
+    </ul>
+
+    <!-- ========== PANEL CONSOLA / LOG ========== -->
+    <!-- TASK 6: Panel de estado visible -->
+    <div class="status-panel">
+      <div class="status-header" id="toggle-log">
+        <span><span class="dot"></span>Consola de actividad</span>
+        <span style="font-size:.7rem">▾</span>
+      </div>
+      <div id="log-output">
+        <div class="log-info">// Iniciando NotaRápida...</div>
+      </div>
+    </div>
+
+  </div><!-- /app-wrapper -->
+
+  <!-- ========== MODAL EDICIÓN ========== -->
+  <dialog id="edit-modal" style="
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 480px;
+    width: 90%;
+    color: var(--text);
+  ">
+    <h2 style="font-family:var(--display);color:var(--accent);margin-bottom:1rem;font-size:1.3rem">Editar nota</h2>
+    <div class="field-group" style="margin-bottom:.75rem">
+      <label for="edit-titulo">Título *</label>
+      <input type="text" id="edit-titulo" />
+    </div>
+    <div class="field-group" style="margin-bottom:.75rem">
+      <label for="edit-categoria">Categoría</label>
+      <select id="edit-categoria">
+        <option value="personal">Personal</option>
+        <option value="trabajo">Trabajo</option>
+        <option value="idea">Idea</option>
+        <option value="urgente">Urgente</option>
+        <option value="otro">Otro</option>
+      </select>
+    </div>
+    <div class="field-group" style="margin-bottom:1rem">
+      <label for="edit-descripcion">Descripción *</label>
+      <textarea id="edit-descripcion" style="min-height:90px"></textarea>
+    </div>
+    <div style="display:flex;gap:.75rem;justify-content:flex-end">
+      <button class="btn btn-secondary" id="btn-cancel-edit">Cancelar</button>
+      <button class="btn btn-primary" id="btn-save-edit">Guardar cambios</button>
+    </div>
+  </dialog>
+
+  <!-- ========== SCRIPT ========== -->
+  <!-- type="module" habilita import/export ES6 entre archivos -->
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>
